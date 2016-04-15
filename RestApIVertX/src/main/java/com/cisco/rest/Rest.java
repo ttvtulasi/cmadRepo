@@ -33,11 +33,12 @@ public class Rest extends AbstractVerticle {
     setUpInitialData();
 
     Router router = Router.router(vertx);
-    router.route().handler(StaticHandler.create()::handle);
+    
     router.route().handler(BodyHandler.create());
     router.get("/products/:productID").handler(this::handleGetProduct);
     router.post("/products/:productID").handler(this::handleAddProduct);
     router.get("/products").handler(this::handleListProducts);
+    router.route().handler(StaticHandler.create()::handle);
 
     vertx.createHttpServer().requestHandler(router::accept).listen(7070);
     System.out.println("SErver up Tulasi");
