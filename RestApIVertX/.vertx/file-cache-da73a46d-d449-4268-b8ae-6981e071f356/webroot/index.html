@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Training</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+
+    	/* $.ajax({url: "1.json", success: function(result){
+           console.log("1.json",result);
+           $("#result").html(JSON.stringify(result));
+           
+           $('#result').append('<br>');
+           $('#result').append('<br>');
+           $('#result').append('<br>');
+           $('#result').append('<br>');
+           
+           $.ajax({url: "2.json", success: function(result){
+               console.log("2.json",JSON.stringify(result));
+               $("#result").append(JSON.stringify(result));
+               $('#result').append('<br>');
+               $('#result').append('<br>');
+               $('#result').append('<br>');
+               $.ajax({url: "3.json", success: function(result){
+            	   console.log("3.json",result);
+            	   $("#result").append(JSON.stringify(result));
+               }});
+           }});
+           
+        }}); */
+        
+        /* var name = "";
+        $.get("1.json").then(function(data){
+        	name= name + JSON.stringify(data);
+        	return $.get("2.json");
+        }).then(function(data){
+        	name= name + JSON.stringify(data);
+        	return $.get("3.json");
+        }).then(function(data){
+        	name= name + JSON.stringify(data);
+        	console.log(JSON.stringify(name));
+        	
+        }); */
+        
+        var onePromise = $.get("1.json");
+        var twoPromise = $.get("2.json");
+        var threePromise = $.get("3.json");
+        
+        $.when(onePromise, twoPromise,threePromise).done(function(data1, data2, data3){
+        	name= name + JSON.stringify(data1) + JSON.stringify(data2) + JSON.stringify(data3);
+        	console.log("done");
+        }).fail(function(data1, data2, data3){
+        	console.log(data1+data2+data3);
+        });
+        
+
+	});
+
+</script>
+</head>
+<body>
+	<div id="result">
+	</div>
+</body>
+</html>
